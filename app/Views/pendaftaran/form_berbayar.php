@@ -185,7 +185,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Daftar</button>
-                                        <a href="<?= site_url('event/peserta/' . $event_id) ?>" class="btn btn-secondary">Kembali ke Detail Event</a>
+                                        <a href="<?= site_url('event/peserta/' . $event_id) ?>" class="btn btn-secondary">Lihat List Peserta</a>
                                     </div>
                                 </form>
                             </div>

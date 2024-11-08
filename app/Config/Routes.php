@@ -32,6 +32,7 @@ $routes->get('event/peserta/(:num)', 'PendaftaranController::peserta/$1');
 $routes->get('/event/search', 'EventController::search');
 $routes->get('event/coming_soon', 'EventController::comingSoon');
 $routes->get('event/peserta', 'PendaftaranController::peserta');
+$routes->get('event/peserta/(:num)', 'EventController::peserta/$1');
 
 //Kategori
 $routes->get('categories', 'KategoriEventController::index'); // Rute untuk halaman daftar kategori

@@ -23,6 +23,7 @@ class PendaftaranController extends BaseController
         $this->provinsiModel = new ProvinsiModel();
     }
 
+    //Fungsi Index
     public function index()
     {
         // Menginstansiasi model PendaftaranModel
@@ -35,6 +36,7 @@ class PendaftaranController extends BaseController
         return view('pendaftaran/index', $data);
     }
 
+    // Fungsi Create
     public function create()
     {
 
@@ -46,6 +48,7 @@ class PendaftaranController extends BaseController
         return view('pendaftaran/pendaftaran_gratis', $data); // Ganti dengan nama view yang sesuai
     }
 
+    // Fungsi Get Kabupaten
     public function get_kabupaten($id_provinsi)
     {
         $kabupatenModel = new KabupatenModel();
@@ -53,6 +56,7 @@ class PendaftaranController extends BaseController
         return $this->response->setJSON($kabupaten);
     }
 
+    // Fungsi Store
     public function store()
     {
         if (!$this->validate([
@@ -122,9 +126,18 @@ class PendaftaranController extends BaseController
         $pendaftaranModel = new PendaftaranModel();
         $pesertaList = $pendaftaranModel->where('id_event', $id_event)->findAll();
 
-        // Konversi status persetujuan menjadi 'Y' atau 'N'
+        // Inisialisasi model untuk kategori event
+        $kategoriEventModel = new KategoriEventModel();
+
+        // Memproses daftar peserta dan menambahkan nama kategori event
         foreach ($pesertaList as &$peserta) {
-            // Jika persetujuan_peserta bernilai true, set 'Y', jika false set 'N'
+            // Ambil data kategori event berdasarkan ID kategori
+            $kategori = $kategoriEventModel->find($peserta['kategori_event']);
+
+            // Tambahkan nama kategori ke peserta jika data ditemukan
+            $peserta['kategori_event_nama'] = $kategori ? $kategori['nama_kategori'] : 'Kategori Tidak Ditemukan';
+
+            // Konversi status persetujuan menjadi 'Y' atau 'N'
             $peserta['persetujuan_peserta'] = $peserta['persetujuan_peserta'] ? 'Y' : 'N';
         }
 
@@ -137,6 +150,7 @@ class PendaftaranController extends BaseController
         // Mengembalikan view peserta dengan data event dan peserta
         return view('pendaftaran/peserta', $data);
     }
+
 
     // Ajax untuk mendapatkan kategori event berdasarkan id_event
     public function getKategoriEventByEvent($id_event)
@@ -270,86 +284,88 @@ class PendaftaranController extends BaseController
         $this->pendaftaranModel->save($data);
 
         // Redirect ke halaman dashboard pengguna
-        return redirect()->to('pendaftaran/peserta/' . $this->request->getPost('event_id'));
+        $idEvent = $this->request->getPost('id_event');
+        return redirect()->to(site_url("event/peserta/" . $idEvent))
+            ->with('success', 'Pendaftaran berhasil!');
     }
 
-    // Store Gratis
-    public function storeGratis()
-    {
-        // Validasi input form
-        if (!$this->validate([
-            'nama_lengkap' => 'required',
-            'email' => 'required|valid_email',
-            'no_hp' => 'required',
-            'alamat_lengkap' => 'required',
-            'id_event' => 'required',
-            'kategori_event' => 'required',
-            'id_provinsi' => 'required',
-            'id_kabupaten' => 'required',
-            'kewarganegaraan' => 'required',
-            'nama_bib' => 'required',
-            'no_identitas' => 'required',
-            'golongan_darah' => 'required',
-            'jenis_kelamin' => 'required',
-            'tanggal_lahir' => 'required',
-            'riwayat_penyakit' => 'required',
-            'ukuran_kaos' => 'required',
-            'kontak_darurat_nama_lengkap' => 'required',
-            'kontak_darurat_no_hp' => 'required',
-            'kontak_darurat_hubungan' => 'required',
-            'persetujuan_peserta' => 'required'
-        ])) {
-            // Jika validasi gagal, kembali ke form dengan pesan error
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
+    // // Store Gratis
+    // public function storeGratis()
+    // {
+    //     // Validasi input form
+    //     if (!$this->validate([
+    //         'nama_lengkap' => 'required',
+    //         'email' => 'required|valid_email',
+    //         'no_hp' => 'required',
+    //         'alamat_lengkap' => 'required',
+    //         'id_event' => 'required',
+    //         'kategori_event' => 'required',
+    //         'id_provinsi' => 'required',
+    //         'id_kabupaten' => 'required',
+    //         'kewarganegaraan' => 'required',
+    //         'nama_bib' => 'required',
+    //         'no_identitas' => 'required',
+    //         'golongan_darah' => 'required',
+    //         'jenis_kelamin' => 'required',
+    //         'tanggal_lahir' => 'required',
+    //         'riwayat_penyakit' => 'required',
+    //         'ukuran_kaos' => 'required',
+    //         'kontak_darurat_nama_lengkap' => 'required',
+    //         'kontak_darurat_no_hp' => 'required',
+    //         'kontak_darurat_hubungan' => 'required',
+    //         'persetujuan_peserta' => 'required'
+    //     ])) {
+    //         // Jika validasi gagal, kembali ke form dengan pesan error
+    //         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    //     }
 
-        // Ambil kategori event berdasarkan ID kategori event
-        $kategoriEventModel = new KategoriEventModel();
-        $idKategoriEvent = $this->request->getPost('kategori_event'); // Ambil ID kategori dari request
+    //     // Ambil kategori event berdasarkan ID kategori event
+    //     $kategoriEventModel = new KategoriEventModel();
+    //     $idKategoriEvent = $this->request->getPost('kategori_event'); // Ambil ID kategori dari request
 
-        // Tambahkan pengecekan jika `kategori_event` kosong
-        if (empty($idKategoriEvent)) {
-            return redirect()->back()->withInput()->with('errors', ['Kategori event tidak boleh kosong.']);
-        }
+    //     // Tambahkan pengecekan jika `kategori_event` kosong
+    //     if (empty($idKategoriEvent)) {
+    //         return redirect()->back()->withInput()->with('errors', ['Kategori event tidak boleh kosong.']);
+    //     }
 
-        $kategori = $kategoriEventModel->find($idKategoriEvent);
+    //     $kategori = $kategoriEventModel->find($idKategoriEvent);
 
-        if (!$kategori) {
-            return redirect()->back()->withInput()->with('errors', ['ID kategori event tidak valid.']);
-        }
+    //     if (!$kategori) {
+    //         return redirect()->back()->withInput()->with('errors', ['ID kategori event tidak valid.']);
+    //     }
 
-        // Ambil data dari form
-        $data = [
-            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
-            'email' => $this->request->getPost('email'),
-            'no_hp' => $this->request->getPost('no_hp'),
-            'alamat_lengkap' => $this->request->getPost('alamat_lengkap'),
-            'id_event' => $this->request->getPost('id_event'),
-            'kategori_event' => $idKategoriEvent, // Pastikan `kategori_event` terisi
-            'rute' => $kategori['rute'] ?? null, // Gunakan null jika 'rute' tidak ada
-            'biaya' => 0, // Set biaya menjadi 0 untuk pendaftaran gratis
-            'id_provinsi' => $this->request->getPost('id_provinsi'),
-            'id_kabupaten' => $this->request->getPost('id_kabupaten'),
-            'kewarganegaraan' => $this->request->getPost('kewarganegaraan'),
-            'nama_bib' => $this->request->getPost('nama_bib'),
-            'no_identitas' => $this->request->getPost('no_identitas'),
-            'golongan_darah' => $this->request->getPost('golongan_darah'),
-            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
-            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
-            'riwayat_penyakit' => $this->request->getPost('riwayat_penyakit'),
-            'ukuran_kaos' => $this->request->getPost('ukuran_kaos'),
-            'kontak_darurat_nama_lengkap' => $this->request->getPost('kontak_darurat_nama_lengkap'),
-            'kontak_darurat_no_hp' => $this->request->getPost('kontak_darurat_no_hp'),
-            'kontak_darurat_hubungan' => $this->request->getPost('kontak_darurat_hubungan'),
-            'persetujuan_peserta' => $this->request->getPost('persetujuan_peserta'),
-            'jenis_pendaftaran' => 'gratis' // Menandai sebagai pendaftaran gratis
-        ];
+    //     // Ambil data dari form
+    //     $data = [
+    //         'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+    //         'email' => $this->request->getPost('email'),
+    //         'no_hp' => $this->request->getPost('no_hp'),
+    //         'alamat_lengkap' => $this->request->getPost('alamat_lengkap'),
+    //         'id_event' => $this->request->getPost('id_event'),
+    //         'kategori_event' => $idKategoriEvent, // Pastikan `kategori_event` terisi
+    //         'rute' => $kategori['rute'] ?? null, // Gunakan null jika 'rute' tidak ada
+    //         'biaya' => 0, // Set biaya menjadi 0 untuk pendaftaran gratis
+    //         'id_provinsi' => $this->request->getPost('id_provinsi'),
+    //         'id_kabupaten' => $this->request->getPost('id_kabupaten'),
+    //         'kewarganegaraan' => $this->request->getPost('kewarganegaraan'),
+    //         'nama_bib' => $this->request->getPost('nama_bib'),
+    //         'no_identitas' => $this->request->getPost('no_identitas'),
+    //         'golongan_darah' => $this->request->getPost('golongan_darah'),
+    //         'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+    //         'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+    //         'riwayat_penyakit' => $this->request->getPost('riwayat_penyakit'),
+    //         'ukuran_kaos' => $this->request->getPost('ukuran_kaos'),
+    //         'kontak_darurat_nama_lengkap' => $this->request->getPost('kontak_darurat_nama_lengkap'),
+    //         'kontak_darurat_no_hp' => $this->request->getPost('kontak_darurat_no_hp'),
+    //         'kontak_darurat_hubungan' => $this->request->getPost('kontak_darurat_hubungan'),
+    //         'persetujuan_peserta' => $this->request->getPost('persetujuan_peserta'),
+    //         'jenis_pendaftaran' => 'gratis' // Menandai sebagai pendaftaran gratis
+    //     ];
 
-        // Simpan ke tabel pendaftaran
-        $this->pendaftaranModel->save($data);
-        // Redirect ke halaman detail event setelah berhasil
-        return redirect()->to('pendaftaran/peserta/' . $this->request->getPost('event_id'));
-    }
+    //     // Simpan ke tabel pendaftaran
+    //     $this->pendaftaranModel->save($data);
+    //     // Redirect ke halaman detail event setelah berhasil
+    //     return redirect()->to('pendaftaran/peserta/' . $this->request->getPost('event_id'));
+    // }
     public function edit($id)
     {
         // Ambil data pendaftaran berdasarkan ID
