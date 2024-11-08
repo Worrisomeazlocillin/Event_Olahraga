@@ -16,6 +16,13 @@
         <div class="container mt-5">
             <h1>Data Pendaftaran</h1>
             
+            <!-- Menampilkan pesan jika ada -->
+            <?php if (session()->getFlashdata('message')): ?>
+                <div class="alert alert-success">
+                    <?= session()->getFlashdata('message') ?>
+                </div>
+            <?php endif; ?>
+
             <div class="card">
                 <div class="card-body">
                     <table class="table table-striped">

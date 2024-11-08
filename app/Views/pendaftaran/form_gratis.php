@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Peserta Event</title>
+    <title>Pendaftaran Peserta Event Berbayar</title>
+    <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/css/bootstrap.min.css') ?>">
 </head>
+
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Pendaftaran Event Olahraga Gratis</h1>
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Pendaftaran Event Olahraga Berbayar</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Form Pendaftaran</h3>
-                            </div>
-                            <form action="<?= site_url('pendaftaran/storeGratis') ?>" method="post">
-                                <?= csrf_field() ?>
-                                <div class="card-body">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Form Pendaftaran Berbayar</h3>
+                                </div>
+                                <form action="<?= site_url(relativePath: 'pendaftaran/storeBerbayar') ?>" method="post">
+                                    <?= csrf_field() ?>
                                     <div class="form-group">
                                         <label for="nama_lengkap">Nama Lengkap:</label>
                                         <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
@@ -61,14 +63,14 @@
 
                                     <!-- Pilihan Kategori Event -->
                                     <div class="form-group">
-                                        <label for="id_kategori_event">Pilih Kategori Event:</label>
-                                        <select name="id_kategori_event" id="id_kategori_event" class="form-control">
+                                        <label for="kategori_event">Pilih Kategori:</label>
+                                        <select name="kategori_event" id="kategori_event" class="form-control">
                                             <option value="">Pilih Kategori Event</option>
                                             <?php if (isset($kategori_events)): ?>
                                                 <?php foreach ($kategori_events as $kategori_event): ?>
-                                                    <option value="<?= $kategori_event['id']; ?>" 
-                                                            data-biaya="<?= $kategori_event['biaya']; ?>" 
-                                                            data-rute="<?= $kategori_event['rute']; ?>">
+                                                    <option value="<?= $kategori_event['id']; ?>"
+                                                        data-biaya="<?= $kategori_event['biaya']; ?>"
+                                                        data-rute="<?= $kategori_event['rute']; ?>">
                                                         <?= $kategori_event['nama_kategori']; ?>
                                                     </option>
                                                 <?php endforeach; ?>
@@ -86,13 +88,14 @@
                                         <input type="text" class="form-control" id="biaya" name="biaya" readonly>
                                     </div>
 
+
                                     <!-- Pilihan Provinsi -->
                                     <div class="form-group">
                                         <label for="id_provinsi">Pilih Provinsi:</label>
                                         <select class="form-control" id="id_provinsi" name="id_provinsi" required>
                                             <option value="">Pilih Provinsi</option>
-                                            <?php foreach($provinsi as $prov): ?>
-                                                <option value="<?= esc($prov['id']) ?>"><?= esc($prov['nama_provinsi']) ?></option>
+                                            <?php foreach ($provinsi as $prov): ?>
+                                                <option value="<?= $prov['id'] ?>"><?= $prov['nama_provinsi'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -105,6 +108,7 @@
                                         </select>
                                     </div>
 
+                                    <!-- Additional Fields -->
                                     <div class="form-group">
                                         <label for="kewarganegaraan">Kewarganegaraan:</label>
                                         <input type="text" class="form-control" id="kewarganegaraan" name="kewarganegaraan">
@@ -179,84 +183,104 @@
                                         <label for="persetujuan_peserta">Persetujuan Peserta:</label>
                                         <input type="checkbox" id="persetujuan_peserta" name="persetujuan_peserta" required>
                                     </div>
-
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Daftar</button>
-                                        <a href="<?= site_url('event/detail/' . $event_id) ?>" class="btn btn-secondary">Kembali ke Detail Event</a>
+                                        <a href="<?= site_url('event/peserta/' . $event_id) ?>" class="btn btn-secondary">Kembali ke Detail Event</a>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
-<script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<script src="<?= base_url('assets/dist/js/adminlte.min.js') ?>"></script>
+    <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
+    <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <script src="<?= base_url('assets/dist/js/adminlte.min.js') ?>"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#id_provinsi').change(function() {
-            var id_provinsi = $(this).val();
-            if (id_provinsi) {
+    <script>
+        $(document).ready(function() {
+            $('#id_provinsi').change(function() {
+                var id_provinsi = $(this).val();
+                if (id_provinsi) {
+                    $.ajax({
+                        url: "<?= site_url('pendaftaran/get_kabupaten') ?>/" + id_provinsi,
+                        method: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('#id_kabupaten').empty();
+                            $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                            $.each(data, function(key, value) {
+                                $('#id_kabupaten').append('<option value="' + value.id + '">' + value.nama_kabupaten + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#id_kabupaten').empty();
+                    $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Update biaya and rute when kategori event is selected
+            $('#kategori_event').change(function() {
+                // Ambil data biaya dan rute dari option yang dipilih
+                var selectedOption = $(this).find('option:selected');
+                var biaya = selectedOption.data('biaya');
+                var rute = selectedOption.data('rute');
+
+                // Isi field biaya dan rute
+                $('#biaya').val(biaya);
+                $('#rute').val(rute);
+            });
+
+            // Mengambil data kabupaten berdasarkan provinsi yang dipilih
+            $('#id_provinsi').change(function() {
+                var id_provinsi = $(this).val();
+                if (id_provinsi) {
+                    $.ajax({
+                        url: "<?= site_url('pendaftaran/get_kabupaten') ?>/" + id_provinsi,
+                        method: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('#id_kabupaten').empty();
+                            $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                            $.each(data, function(key, value) {
+                                $('#id_kabupaten').append('<option value="' + value.id + '">' + value.nama_kabupaten + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#id_kabupaten').empty();
+                    $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#id_event').change(function() {
+                var eventId = $(this).val();
                 $.ajax({
-                    url: "<?= site_url('pendaftaran/get_kabupaten') ?>/" + id_provinsi,
-                    method: "GET",
-                    dataType: "json",
+                    url: '/pendaftaran/getKategoriEventByEvent/' + eventId,
+                    type: 'GET',
+                    dataType: 'json',
                     success: function(data) {
-                        $('#id_kabupaten').empty();
-                        $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
-                        $.each(data, function(key, value) {
-                            $('#id_kabupaten').append('<option value="'+ value.id +'">'+ value.nama_kabupaten +'</option>');
+                        var options = '<option value="">Pilih Kategori Event</option>';
+                        $.each(data, function(key, val) {
+                            options += '<option value="' + val.id + '">' + val.nama_kategori_event + '</option>';
                         });
+                        $('#id_kategori_event').html(options);
                     }
                 });
-            } else {
-                $('#id_kabupaten').empty();
-                $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
-            }
+            });
         });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        // Update biaya and rute when kategori event is selected
-        $('#id_kategori_event').change(function() {
-            var selectedOption = $(this).find('option:selected');
-            var biaya = selectedOption.data('biaya'); // Ambil data biaya dari opsi yang dipilih
-            var rute = selectedOption.data('rute'); // Ambil data rute dari opsi yang dipilih
-            
-            $('#biaya').val(biaya); // Isi nilai biaya ke input biaya
-            $('#rute').val(rute); // Isi nilai rute ke input rute
-        });
-
-        // Mengambil data kabupaten berdasarkan provinsi yang dipilih
-        $('#id_provinsi').change(function() {
-            var id_provinsi = $(this).val();
-            if (id_provinsi) {
-                $.ajax({
-                    url: "<?= site_url('pendaftaran/get_kabupaten') ?>/" + id_provinsi,
-                    method: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        $('#id_kabupaten').empty();
-                        $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
-                        $.each(data, function(key, value) {
-                            $('#id_kabupaten').append('<option value="'+ value.id +'">'+ value.nama_kabupaten +'</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#id_kabupaten').empty();
-                $('#id_kabupaten').append('<option value="">Pilih Kabupaten</option>');
-            }
-        });
-    });
-</script>
+    </script>
 
 </body>
+
 </html>

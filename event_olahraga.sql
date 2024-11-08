@@ -3,11 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
-<<<<<<< HEAD
--- Generation Time: Nov 04, 2024 at 08:58 AM
-=======
--- Generation Time: Oct 24, 2024 at 10:14 AM
->>>>>>> 885d8ce030c8c86fa2a63ebd954d8018cf811fd4
+-- Generation Time: Nov 07, 2024 at 09:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -49,7 +45,7 @@ CREATE TABLE `events` (
 INSERT INTO `events` (`id`, `event_name`, `event_date`, `location`, `description`, `event_image`, `created_at`, `updated_at`) VALUES
 (1, 'Running 2024', '2024-11-10', 'Yogyakarta, Alun- Alun Kidul', 'Event Olahraga yang di selenggarakan di Kota Yogyakarta yang berlokasi di alun-alun kidul', '1729045518_0f640254c6ed1dddfca6.jpg', '2024-10-03 07:57:38', '2024-10-16 02:25:18'),
 (2, 'Gunung Nglanggeran', '2024-11-17', 'Gunung Nglanggeran', 'Event lari Gunung Nglanggeran', '1729045439_9a9bdff7ebf0b420d891.jpg', '2024-10-07 03:21:57', '2024-10-16 02:23:59'),
-(3, 'AQUA 2.0 Yogyakarta', '2024-11-24', 'Alun-Alum Kidul, Yogyakarta', 'Event Lari AQUA RUNNING 2.0 Yogyakarta', '1729045493_4f2bcc8fa346cba414ed.jpg', '2024-10-07 03:27:54', '2024-10-24 02:03:56'),
+(3, 'AQUA RUNNING 2.0 Yogyakarta', '2024-11-24', 'Alun-Alum Kidul, Yogyakarta', 'Event Lari AQUA RUNNING 2.0 Yogyakarta', '1729045493_4f2bcc8fa346cba414ed.jpg', '2024-10-07 03:27:54', '2024-10-16 02:24:53'),
 (4, 'Prambanan Temple Run', '2024-12-01', 'Candi Prambanan', 'West Prambanan Temple', '1728980000_eb6e284612645471ceac.png', '2024-10-14 23:35:23', '2024-10-15 08:13:20');
 
 -- --------------------------------------------------------
@@ -290,8 +286,7 @@ INSERT INTO `kategori_event` (`id`, `id_event`, `nama_kategori`, `deskripsi_kate
 (3, 1, 'Running', 'Event Lari', 100000.00, '10 KM', '2024-11-10', '07:00:00', '10:00:00', 'Jadwal waktu bisa berubah sesuai kondisi di lapangan', '2024-10-06 19:47:19', '2024-10-07 23:14:29'),
 (4, 1, 'Running', 'Event Lari', 150000.00, '15 KM', '2024-11-10', '07:00:00', '10:00:00', 'Jadwal waktu bisa berubah sesuai kondisi di lapangan', '2024-10-06 19:50:22', '2024-10-07 23:14:47'),
 (5, 1, 'Running', 'Event Lari', 200000.00, '20 KM', '2024-11-10', '07:00:00', '10:00:00', 'Jadwal waktu bisa berubah sesuai kondisi di lapangan', '2024-10-06 19:50:28', '2024-10-16 02:56:32'),
-(6, 2, 'Down Hill', 'Event Lari Gunung Nglanggeran', 0.00, '5 KM', '2024-11-10', '07:00:00', '10:00:00', 'Jadwal dapat berubah sesuai kondisi di lapangan', '2024-10-06 19:52:32', '2024-10-16 06:10:39'),
-(10, 3, 'Lari Marathon', 'Lari yang di selenggarakan oleh sponsor AQUA', 20000.00, '5 KM', '2025-01-05', '07:00:00', '11:00:00', 'Jadwal bisa berubah sesuai kondisi di lapangan', '2024-10-23 07:56:42', '2024-10-23 07:56:42');
+(6, 2, 'Down Hill', 'Event Lari Gunung Nglanggeran', 0.00, '5 KM', '2024-11-10', '07:00:00', '10:00:00', 'Jadwal dapat berubah sesuai kondisi di lapangan', '2024-10-06 19:52:32', '2024-10-16 06:10:39');
 
 -- --------------------------------------------------------
 
@@ -304,7 +299,7 @@ CREATE TABLE `pendaftaran` (
   `id_event` int(11) NOT NULL,
   `kategori_event` int(11) NOT NULL,
   `rute` varchar(255) DEFAULT NULL,
-  `biaya` decimal(10,2) DEFAULT NULL,
+  `biaya` varchar(255) DEFAULT NULL,
   `nama_lengkap` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `no_hp` varchar(20) NOT NULL,
@@ -324,15 +319,19 @@ CREATE TABLE `pendaftaran` (
   `kontak_darurat_hubungan` varchar(100) DEFAULT NULL,
   `persetujuan_peserta` char(1) NOT NULL DEFAULT 'N',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `jenis_pendaftaran` enum('berbayar','gratis') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pendaftaran`
 --
 
-INSERT INTO `pendaftaran` (`id`, `id_event`, `kategori_event`, `rute`, `biaya`, `nama_lengkap`, `email`, `no_hp`, `alamat_lengkap`, `id_provinsi`, `id_kabupaten`, `kewarganegaraan`, `nama_bib`, `no_identitas`, `golongan_darah`, `jenis_kelamin`, `tanggal_lahir`, `riwayat_penyakit`, `ukuran_kaos`, `kontak_darurat_nama_lengkap`, `kontak_darurat_no_hp`, `kontak_darurat_hubungan`, `persetujuan_peserta`, `created_at`, `updated_at`) VALUES
-(2, 1, 2, '5 KM', 50000.00, 'Rachmadaani Indrianto', 'rachmadaani.riskha@gmail.com', '08895228029', 'Piyungan Rt/Rw : 009/000, Srimartani, Piyungan, Bantul, Yogyakarta', 15, 72, 'Indonesia', 'Rachmadaani', '3489294767299377892', 'A', 'L', '2002-05-01', 'Tidak ada', 'S', 'Bambang', '0846258295710', 'Ayah', 'Y', '2024-10-31 06:15:43', '2024-11-04 02:36:03');
+INSERT INTO `pendaftaran` (`id`, `id_event`, `kategori_event`, `rute`, `biaya`, `nama_lengkap`, `email`, `no_hp`, `alamat_lengkap`, `id_provinsi`, `id_kabupaten`, `kewarganegaraan`, `nama_bib`, `no_identitas`, `golongan_darah`, `jenis_kelamin`, `tanggal_lahir`, `riwayat_penyakit`, `ukuran_kaos`, `kontak_darurat_nama_lengkap`, `kontak_darurat_no_hp`, `kontak_darurat_hubungan`, `persetujuan_peserta`, `created_at`, `updated_at`, `jenis_pendaftaran`) VALUES
+(2, 1, 2, '5 KM', '50000.00', 'Rachmadaani Indrianto', 'rachmadaani.riskha@gmail.com', '08895228029', 'Piyungan Rt/Rw : 009/000, Srimartani, Piyungan, Bantul, Yogyakarta', 15, 72, 'Indonesia', 'Rachmadaani', '3489294767299377892', 'A', 'L', '2002-05-01', 'Tidak ada', 'S', 'Bambang', '0846258295710', 'Ayah', 'o', '2024-10-31 06:15:43', '2024-11-06 07:49:50', 'berbayar'),
+(3, 1, 2, '5 KM', '50000.00', 'Aldo Brawijaya', 'aldo@gmail.com', '087836289192', 'Jalan mawar', 14, 66, 'Indonesia', 'Aldo', '3489294767299447524', 'A', 'L', '2002-07-11', 'Tidak ada', 'L', 'Bambang', '0846258295710', 'Ayah', 'o', '2024-11-06 07:32:33', '2024-11-06 07:55:26', 'berbayar'),
+(4, 1, 2, '5 KM', '50000.00', 'Firman', 'firman@gmail.com', '087836289192', 'Jalan mawar', 16, 77, 'Indonesia', 'Firman', '3489294767299447524', 'A', 'L', '2002-07-11', 'Tidak ada', 'L', 'Bambang', '0846258295710', 'Ayah', 'o', '2024-11-06 07:54:35', '2024-11-06 07:55:59', 'berbayar'),
+(12, 2, 6, '5 KM', '0.00', 't', 'test@gamil.com', '8', 't', 3, 11, 'y', 't', '9', 'A', 'L', '2024-11-01', 't', 'S', 't', '8', 't', 'o', '2024-11-07 08:47:00', '2024-11-07 08:47:00', 'berbayar');
 
 -- --------------------------------------------------------
 
@@ -477,13 +476,13 @@ ALTER TABLE `kabupaten`
 -- AUTO_INCREMENT for table `kategori_event`
 --
 ALTER TABLE `kategori_event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `provinsi`

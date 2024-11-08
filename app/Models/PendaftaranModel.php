@@ -10,16 +10,12 @@ class PendaftaranModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'id_event', 'kategori_event', 'rute', 'biaya', 'nama_lengkap', 'email', 'no_hp', 
-        'alamat_lengkap', 'id_provinsi', 'id_kabupaten', 'kewarganegaraan', 
-<<<<<<< HEAD
+        'alamat_lengkap', 'id_provinsi', 'id_kabupaten', 'kewarganegaraan',
         'nama_bib', 'no_identitas', 'golongan_darah', 'jenis_kelamin', 
-=======
         'id_nama_nib', 'no_identitas', 'golongan_darah', 'jenis_kelamin', 
->>>>>>> 885d8ce030c8c86fa2a63ebd954d8018cf811fd4
         'tanggal_lahir', 'riwayat_penyakit', 'ukuran_kaos', 
-        'kontak_darurat_nama_lengkap', 'kontak_darurat_no_hp', 
-        'kontak_darurat_hubungan', 'persetujuan_peserta', 
-        'created_at', 'updated_at'
+        'kontak_darurat_nama_lengkap', 'kontak_darurat_no_hp', 'kontak_darurat_hubungan', 
+        'persetujuan_peserta', 'jenis_pendaftaran', 'created_at', 'updated_at'
     ];
 
     public function getPesertaWithDetails()
@@ -31,10 +27,4 @@ class PendaftaranModel extends Model
             ->get()->getResultArray();
     }
 
-    public function savePendaftaran($data)
-    {
-        $data['persetujuan_peserta'] = isset($data['persetujuan_peserta']) ? 1 : 0;
-        $this->insert($data);
-    }
-    
 }

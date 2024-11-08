@@ -15,7 +15,8 @@ class PendaftaranController extends BaseController
     protected $pendaftaranModel;
     protected $provinsiModel;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->eventModel = new EventModel(); // Inisialisasi EventModel
         $this->kategorieventModel = new KategoriEventModel();
         $this->pendaftaranModel = new PendaftaranModel(); // Inisialisasi model pendaftaran jika diperlukan
@@ -33,18 +34,14 @@ class PendaftaranController extends BaseController
         // Mengembalikan view dengan data pendaftaran
         return view('pendaftaran/index', $data);
     }
-    
+
     public function create()
     {
-        // Inisialisasi model yang dibutuhkan
-        $this->EventModel = new EventModel(); // Menggunakan $this untuk akses model
-        $this->KategoriEventModel = new KategoriEventModel();
-        $this->ProvinsiModel = new ProvinsiModel();
 
         // Ambil semua event gratis (biaya 0), kategori event, dan provinsi untuk dropdown
         $data['events'] = $this->eventModel->where('biaya', 0)->findAll(); // Ambil event dengan biaya 0
-        $data['kategori_events'] = $this->KategoriEventModel->findAll(); 
-        $data['provinsi'] = $this->ProvinsiModel->findAll(); 
+        $data['kategori_events'] = $this->kategorieventModel->findAll();
+        $data['provinsi'] = $this->provinsiModel->findAll();
 
         return view('pendaftaran/pendaftaran_gratis', $data); // Ganti dengan nama view yang sesuai
     }
@@ -56,7 +53,8 @@ class PendaftaranController extends BaseController
         return $this->response->setJSON($kabupaten);
     }
 
-    public function store() {
+    public function store()
+    {
         if (!$this->validate([
             'id_kabupaten' => 'required',
             'id_event' => 'required',
@@ -66,7 +64,7 @@ class PendaftaranController extends BaseController
         }
 
         $idKategoriEvent = $this->request->getPost('kategori_event');
-        $kategori = $this->kategoriEventModel->find($idKategoriEvent);
+        $kategori = $this->kategorieventModel->find($idKategoriEvent);
 
         if (!$kategori) {
             return redirect()->back()->withInput()->with('errors', ['ID kategori event tidak valid.']);
@@ -102,27 +100,41 @@ class PendaftaranController extends BaseController
         $pendaftaranModel = new PendaftaranModel();
         $pendaftaranModel->save($data);
 
-        return redirect()->to('/pendaftaran/success'); // Ganti dengan rute yang sesuai
+        return redirect()->to('/pendaftaran/peserta'); // Ganti dengan rute yang sesuai
     }
 
-    public function peserta()
+    public function peserta($id_event = null)
     {
-        // Pastikan model telah diinisialisasi
-        $pendaftaranModel = new PendaftaranModel();
+        // Pastikan ID event telah diteruskan
+        if ($id_event === null) {
+            return redirect()->to('/pendaftaran')->with('error', 'Event tidak ditemukan.');
+        }
 
-        // Mengambil semua data pendaftaran
-        $pesertaList = $pendaftaranModel->findAll();
+        // Ambil data event berdasarkan ID
+        $eventModel = new EventModel();
+        $event = $eventModel->find($id_event);
+
+        if (!$event) {
+            return redirect()->to('/pendaftaran')->with('error', 'Event tidak ditemukan.');
+        }
+
+        // Mengambil daftar peserta untuk event tertentu
+        $pendaftaranModel = new PendaftaranModel();
+        $pesertaList = $pendaftaranModel->where('id_event', $id_event)->findAll();
 
         // Konversi status persetujuan menjadi 'Y' atau 'N'
         foreach ($pesertaList as &$peserta) {
+            // Jika persetujuan_peserta bernilai true, set 'Y', jika false set 'N'
             $peserta['persetujuan_peserta'] = $peserta['persetujuan_peserta'] ? 'Y' : 'N';
         }
 
-        // Mengirim data ke view
+        // Kirim data ke view
         $data = [
-            'pesertaList' => $pesertaList,
+            'event' => $event, // Data event untuk ditampilkan di view
+            'pesertaList' => $pesertaList, // Daftar peserta yang sudah dikonversi
         ];
 
+        // Mengembalikan view peserta dengan data event dan peserta
         return view('pendaftaran/peserta', $data);
     }
 
@@ -142,13 +154,13 @@ class PendaftaranController extends BaseController
             $event = $this->eventModel->find($event_id);
         }
 
-         // Ambil semua event, kategori event terkait, dan provinsi
+        // Ambil semua event, kategori event terkait, dan provinsi
         $data['events'] = $this->eventModel->findAll();
         $data['kategori_events'] = $this->kategorieventModel->where('id_event', $event_id)->findAll(); // Filter kategori event
         $data['provinsi'] = $this->provinsiModel->findAll();
 
         return view('pendaftaran/form_berbayar', [
-            'event_id' => $event_id, 
+            'event_id' => $event_id,
             'event' => $event,
             'events' => $data['events'],
             'kategori_events' => $data['kategori_events'], // Kirim kategori event terkait ke view
@@ -172,18 +184,19 @@ class PendaftaranController extends BaseController
         // Ambil kategori event yang terkait dengan event ini
         $kategori_events = $kategorieventModel->where('id_event', $event_id)->findAll();
 
-        // Ambil provinsi untuk dropdown
+        // Ambil semua provinsi untuk dropdown
         $provinsi = $provinsiModel->findAll();
 
         // Kirim data ke view
         return view('pendaftaran/form_gratis', [
+            'event_id' => $event_id,
             'event' => $event,
-            'kategori_events' => $kategori_events,
-            'provinsi' => $provinsi,
-            'event_id' => $event_id, // Tambahkan $event_id ke view
+            'events' => $eventModel->findAll(),
+            'kategori_events' => $kategori_events, // Kirim kategori event terkait ke view
+            'provinsi' => $provinsi
         ]);
     }
-    
+
     // Store Berbayar
     public function storeBerbayar()
     {
@@ -234,8 +247,8 @@ class PendaftaranController extends BaseController
             'alamat_lengkap' => $this->request->getPost('alamat_lengkap'),
             'id_event' => $this->request->getPost('id_event'),
             'kategori_event' => $idKategoriEvent, // Pastikan `kategori_event` terisi
-            'rute' => $kategori['rute'] ?? null, // Gunakan null jika 'rute' tidak ada
-            'biaya' => $kategori['biaya'] ?? 0, // Gunakan 0 jika 'biaya' tidak ada
+            'rute' => $kategori['rute'], // Gunakan null jika 'rute' tidak ada
+            'biaya' => $kategori['biaya'], // Gunakan 0 jika 'biaya' tidak ada
             'id_provinsi' => $this->request->getPost('id_provinsi'),
             'id_kabupaten' => $this->request->getPost('id_kabupaten'),
             'kewarganegaraan' => $this->request->getPost('kewarganegaraan'),
@@ -257,14 +270,14 @@ class PendaftaranController extends BaseController
         $this->pendaftaranModel->save($data);
 
         // Redirect ke halaman dashboard pengguna
-        return redirect()->to('/event/peserta')->with('message', 'Pendaftaran Berbayar Berhasil');
+        return redirect()->to('pendaftaran/peserta/' . $this->request->getPost('event_id'));
     }
 
     // Store Gratis
     public function storeGratis()
     {
-        // Validasi data
-        $this->validate([
+        // Validasi input form
+        if (!$this->validate([
             'nama_lengkap' => 'required',
             'email' => 'required|valid_email',
             'no_hp' => 'required',
@@ -285,16 +298,24 @@ class PendaftaranController extends BaseController
             'kontak_darurat_no_hp' => 'required',
             'kontak_darurat_hubungan' => 'required',
             'persetujuan_peserta' => 'required'
-        ]);
+        ])) {
+            // Jika validasi gagal, kembali ke form dengan pesan error
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
 
         // Ambil kategori event berdasarkan ID kategori event
         $kategoriEventModel = new KategoriEventModel();
         $idKategoriEvent = $this->request->getPost('kategori_event'); // Ambil ID kategori dari request
+
+        // Tambahkan pengecekan jika `kategori_event` kosong
+        if (empty($idKategoriEvent)) {
+            return redirect()->back()->withInput()->with('errors', ['Kategori event tidak boleh kosong.']);
+        }
+
         $kategori = $kategoriEventModel->find($idKategoriEvent);
 
-        // Cek apakah kategori ditemukan dan memiliki rute
-        if (!$kategori || !isset($kategori['rute'])) {
-            return redirect()->back()->withInput()->with('errors', ['ID kategori event tidak valid atau rute tidak ditemukan.']);
+        if (!$kategori) {
+            return redirect()->back()->withInput()->with('errors', ['ID kategori event tidak valid.']);
         }
 
         // Ambil data dari form
@@ -304,9 +325,9 @@ class PendaftaranController extends BaseController
             'no_hp' => $this->request->getPost('no_hp'),
             'alamat_lengkap' => $this->request->getPost('alamat_lengkap'),
             'id_event' => $this->request->getPost('id_event'),
-            'kategori_event' => $this->request->getPost('kategori_event'),
-            'rute' => $kategori['rute'], // Ambil rute dari kategori
-            'biaya' => 0, // Biaya gratis // Ambil biaya dari kategori
+            'kategori_event' => $idKategoriEvent, // Pastikan `kategori_event` terisi
+            'rute' => $kategori['rute'] ?? null, // Gunakan null jika 'rute' tidak ada
+            'biaya' => 0, // Set biaya menjadi 0 untuk pendaftaran gratis
             'id_provinsi' => $this->request->getPost('id_provinsi'),
             'id_kabupaten' => $this->request->getPost('id_kabupaten'),
             'kewarganegaraan' => $this->request->getPost('kewarganegaraan'),
@@ -321,16 +342,14 @@ class PendaftaranController extends BaseController
             'kontak_darurat_no_hp' => $this->request->getPost('kontak_darurat_no_hp'),
             'kontak_darurat_hubungan' => $this->request->getPost('kontak_darurat_hubungan'),
             'persetujuan_peserta' => $this->request->getPost('persetujuan_peserta'),
-            'jenis_pendaftaran' => 'berbayar' // Menandai sebagai pendaftaran berbayar
+            'jenis_pendaftaran' => 'gratis' // Menandai sebagai pendaftaran gratis
         ];
 
-        if ($pendaftaranModel->insert($data)) {
-            return redirect()->to('pendaftaran/peserta')->with('success', 'Pendaftaran berhasil disimpan.');
-        } else {
-            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menyimpan data.');
-        }
+        // Simpan ke tabel pendaftaran
+        $this->pendaftaranModel->save($data);
+        // Redirect ke halaman detail event setelah berhasil
+        return redirect()->to('pendaftaran/peserta/' . $this->request->getPost('event_id'));
     }
-
     public function edit($id)
     {
         // Ambil data pendaftaran berdasarkan ID
@@ -341,7 +360,7 @@ class PendaftaranController extends BaseController
 
         // Data tambahan, misalnya daftar provinsi, kategori, dll.
         $provinsi = $this->provinsiModel->findAll();
-        $kategori_event = $this->kategoriEventModel->findAll(); // Panggilan model kategori event
+        $kategori_event = $this->kategorieventModel->findAll(); // Panggilan model kategori event
 
         // Kirim data ke view
         return view('pendaftaran/edit', [
@@ -350,6 +369,4 @@ class PendaftaranController extends BaseController
             'kategori_event' => $kategori_event,
         ]);
     }
-
 }
-

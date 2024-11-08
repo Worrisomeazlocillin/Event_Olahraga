@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
-//Dashboard
+// Dashboard
 $routes->get('dashboard', 'DashboardController::index');
 $routes->get('/dashboard', 'DashboardController::index', ['filter' => 'auth']);
 
@@ -28,9 +28,10 @@ $routes->post('events/delete/(:num)', 'EventController::delete/$1'); // Route fo
 $routes->get('events/delete/(:num)', 'EventController::delete/$1'); // Delete event
 $routes->get('event/detail/(:num)', 'EventController::detail/$1');
 $routes->post('events/storeAndProceed', 'EventController::storeAndProceed');
-$routes->get('/event/peserta/(:num)', 'EventController::peserta/$1'); // Ganti EventController dengan controller yang sesuai
+$routes->get('event/peserta/(:num)', 'PendaftaranController::peserta/$1');
 $routes->get('/event/search', 'EventController::search');
 $routes->get('event/coming_soon', 'EventController::comingSoon');
+$routes->get('event/peserta', 'PendaftaranController::peserta');
 
 //Kategori
 $routes->get('categories', 'KategoriEventController::index'); // Rute untuk halaman daftar kategori
@@ -71,5 +72,4 @@ $routes->get('pendaftaran/formGratis/(:num)', 'PendaftaranController::formGratis
 $routes->get('pendaftaran/form_gratis/(:num)', 'PendaftaranController::showForm/$1');
 $routes->get('pendaftaran/form-berbayar/(:num)', 'PendaftaranController::formBerbayar/$1');
 $routes->post('pendaftaran/storeBerbayar', 'PendaftaranController::storeBerbayar');
-$routes->post('pendaftaran/storeGratis', 'PendaftaranController::storeGratis');
-
+$routes->post('p2', 'PendaftaranController::storeGratis');

@@ -2,18 +2,9 @@
     <!-- /.content -->
   </div>
   <footer class="main-footer">
-<<<<<<< HEAD
     <strong>&copy; <?= date('Y') ?> <span class="text-primary">EVENT OLAHRAGA</span></strong>
     All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      
-    </div>
-=======
-      <strong>Copyright &copy; <span id="currentYear"></span> <span class="text-primary">EVENT OLAHRAGA</span>.</strong>
-      All rights reserved.
-      <div class="float-right d-none d-sm-inline-block">
-      </div>
->>>>>>> 885d8ce030c8c86fa2a63ebd954d8018cf811fd4
+    <div class="float-right d-none d-sm-inline-block">    </div>
   </footer>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
