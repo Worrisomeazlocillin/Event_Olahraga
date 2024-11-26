@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Peserta Event Berbayar</title>
+    <title>Formulir Pembayaran</title>
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
@@ -13,12 +13,13 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
+        <?= $this->include('header_user') ?>
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Pendaftaran Event Olahraga Berbayar</h1>
+                            <h1 class="m-0">Formulir Pembayaran</h1>
                         </div>
                     </div>
                 </div>
@@ -281,6 +282,7 @@
         });
     </script>
 
+    <?= $this->include('footer') ?>
 </body>
 
 </html>

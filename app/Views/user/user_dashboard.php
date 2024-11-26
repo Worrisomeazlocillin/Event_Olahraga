@@ -35,7 +35,8 @@
 
     <!-- Header dengan menu Kontak dan About -->
     <div class="header bg-light border-bottom py-2">
-        <div class="container d-flex justify-content-end">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="mb-0">EVENT OLAHRAGA</h1>
             <?php if (session()->get('user_id')): ?>
                 <!-- Tombol hanya tampil jika pengguna sudah login -->
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#profileModal">Lihat Profil</button>
@@ -44,15 +45,14 @@
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#logoutModal">Logout</button>
             <?php else: ?>
                 <!-- Tombol Login mengarah langsung ke halaman login -->
-                <a href="<?= site_url('user/login') ?>" class="btn btn-link">Login</a>
+                <!-- <a href="<?= site_url('user/login') ?>" class="btn btn-link">Login</a> -->
             <?php endif; ?>
         </div>
     </div>
 
     <!-- Bagian judul utama -->
     <div class="container mt-3 text-center">
-        <h1>EVENT OLAHRAGA</h1>
-        <h2>List Event</h2>
+        <h1>List Event</h1>
     </div>
 
     <div class="container mt-5">
@@ -109,10 +109,10 @@
                                 </p>
                                 <?php if (session()->get('user_id')): ?>
                                     <!-- Tombol 'Lihat Detail' jika pengguna sudah login -->
-                                    <a href="<?= base_url('event/detail/' . $event['id']) ?>" class="btn btn-primary">Lihat Detail</a>
+                                    <a href="<?= base_url('event/detail/' . $event['id']) ?>" class="btn btn-primary">Daftar</a>
                                 <?php else: ?>
                                     <!-- Tombol 'Login' jika pengguna belum login -->
-                                    <a href="<?= site_url('user/login') ?>" class="btn btn-primary">Login untuk Lihat Detail</a>
+                                    <a href="<?= site_url('user/login') ?>" class="btn btn-primary">Login untuk Daftar</a>
                                 <?php endif; ?>
                             </div>
                         </div>

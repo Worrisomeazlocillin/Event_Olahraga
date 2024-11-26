@@ -11,6 +11,7 @@
 
 <body>
     <div class="container mt-5">
+        <?= $this->include('header_user') ?>
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
                 <h1 class="card-title text-center">Detail Event</h1>
@@ -108,6 +109,7 @@
         }, 1000);
     </script>
 
+    <?= $this->include('footer') ?>
 </body>
 
 </html>

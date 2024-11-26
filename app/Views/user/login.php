@@ -17,10 +17,6 @@
                 <form action="<?= site_url('authuser/loginuser') ?>" method="post">
                     <?= csrf_field() ?>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username:</label>
-                        <input type="username" class="form-control" name="email" id="username" value="<?= old('username') ?>" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
                         <input type="email" class="form-control" name="email" id="email" value="<?= old('email') ?>" required>
                     </div>
