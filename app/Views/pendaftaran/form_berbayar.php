@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Daftar</button>
-                                        <a href="<?= site_url('payment/' . $event_id) ?>" class="btn btn-secondary">Lihat Pembayaran</a>
+                                        <a href="<?= site_url('event/detail/' . $event_id) ?>" class="btn btn-secondary">Kembali</a>
                                     </div>
                                 </form>
                             </div>

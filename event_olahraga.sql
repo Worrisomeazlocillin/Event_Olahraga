@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2024 at 04:19 AM
+-- Generation Time: Nov 29, 2024 at 07:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -326,7 +326,6 @@ CREATE TABLE `pembayaran` (
   `biaya` decimal(10,2) DEFAULT NULL,
   `jumlah_pembayaran` decimal(10,2) DEFAULT NULL,
   `status_pembayaran` enum('lunas','belum lunas') DEFAULT 'belum lunas',
-  `scan_ktp` varchar(255) DEFAULT NULL,
   `bukti_transfer` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -336,9 +335,10 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id`, `id_user`, `id_event`, `event_kategori`, `biaya`, `jumlah_pembayaran`, `status_pembayaran`, `scan_ktp`, `bukti_transfer`, `created_at`, `updated_at`) VALUES
-(2, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'FLOW CHART ALUR MAGANG.PNG', 'FLOWCHART FORM PENDAFTARAN.PNG', '2024-11-18 05:44:53', '2024-11-18 05:44:53'),
-(3, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'FLOW CHART ALUR MAGANG.PNG', 'FLOWCHART FORM PENDAFTARAN.PNG', '2024-11-18 05:46:41', '2024-11-18 05:46:41');
+INSERT INTO `pembayaran` (`id`, `id_user`, `id_event`, `event_kategori`, `biaya`, `jumlah_pembayaran`, `status_pembayaran`, `bukti_transfer`, `created_at`, `updated_at`) VALUES
+(2, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'FLOWCHART FORM PENDAFTARAN.PNG', '2024-11-18 05:44:53', '2024-11-18 05:44:53'),
+(3, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'FLOWCHART FORM PENDAFTARAN.PNG', '2024-11-18 05:46:41', '2024-11-18 05:46:41'),
+(4, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'Peta Kurikulum 2024.jpg', '2024-11-29 06:35:02', '2024-11-29 06:35:02');
 
 -- --------------------------------------------------------
 
@@ -386,7 +386,8 @@ INSERT INTO `pendaftaran` (`id`, `id_event`, `kategori_event`, `rute`, `biaya`, 
 (15, 2, 6, '5 KM', '0.00', 't', 'test@gamil.com', '8', 't', 11, 53, 'y', 't', '8', 'A', 'L', '2024-11-01', 't', 'S', 'y', '8', 't', 'o', '2024-11-08 03:00:27', '2024-11-08 03:00:27', 'berbayar'),
 (17, 1, 2, '5 KM', '50000.00', 'Burhan', 'burhan@gmail.com', '0845712812346', 'Jalan Mawar', 11, 53, 'Indonesia', 'Burhan', '3489294767299376489', 'A', 'L', '2000-06-07', 'Tidak ada', 'S', 'Birul', '0862538163890', 'Ayah', 'o', '2024-11-08 03:06:57', '2024-11-11 07:56:54', 'berbayar'),
 (32, 3, 7, '20 KM', '60000.00', 'Herman', 'herman@gmail.com', '0897352819456', 'Jalan Diponegoro', 11, 53, 'Indonesia', 'Herman', '3489294767299376489', 'B', 'L', '1999-07-10', 'Tidak ada', 'L', 'Bambang', '0875629836736', 'Ayah', 'o', '2024-11-14 07:10:45', '2024-11-14 07:10:45', 'berbayar'),
-(35, 3, 7, '20 KM', '60000.00', 't', 'test@gamil.com', '9', 'j', 1, 1, 'i', 'h', '8', 'A', 'L', '1999-07-08', 'tidakl ada', 'S', 't', '8', 't', 'o', '2024-11-14 07:37:55', '2024-11-14 07:37:55', 'berbayar');
+(35, 3, 7, '20 KM', '60000.00', 't', 'test@gamil.com', '9', 'j', 1, 1, 'i', 'h', '8', 'A', 'L', '1999-07-08', 'tidakl ada', 'S', 't', '8', 't', 'o', '2024-11-14 07:37:55', '2024-11-14 07:37:55', 'berbayar'),
+(46, 3, 7, '20 KM', '60000.00', 'Rachmadaani Indrianto', 'rachmadaani.riskha@gmail.com', '08895228029', 'Piyungan Rt/Rw : 009/000, Srimartani, Piyungan, Bantul, Yogyakarta', 15, 72, 'Indonesia', 'Dani', '3489462437490003', 'A', 'L', '2002-05-01', 'Tidak Ada', 'L', 'Maman', '08895228029', 'Ayah', 'o', '2024-11-29 06:24:57', '2024-11-29 06:24:57', 'berbayar');
 
 -- --------------------------------------------------------
 
@@ -559,13 +560,13 @@ ALTER TABLE `login_user`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `provinsi`

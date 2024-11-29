@@ -73,10 +73,8 @@ $routes->post('login', 'AuthController::submit'); // Rute untuk proses login
 $routes->post('register', 'AuthController::submitRegister'); // Rute untuk proses register
 
 //Pembayaran
-$routes->get('payment/(:num)', 'PembayaranController::index/$1');
-$routes->post('payment/submit_payment', 'PembayaranController::submit_payment');
-$routes->get('admin/payments', 'PembayaranController::list');
 $routes->get('payment/form/(:num)', 'PembayaranController::form/$1');
+$routes->post('payment/submit_payment', 'PembayaranController::submit_payment');
 
 //Uploads
 $routes->get('uploads/(:any)', 'Uploads::serve/$1');

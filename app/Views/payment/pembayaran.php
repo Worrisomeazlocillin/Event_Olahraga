@@ -40,18 +40,13 @@
         <!-- Form Pembayaran -->
         <div class="card shadow mb-5">
             <div class="card-header bg-success text-white">
-                <h2 class="h5 mb-0">Form Pembayaran</h2>
+                <h2 class="h5 mb-0">Form Konfirmasi Pembayaran</h2>
             </div>
             <div class="card-body">
                 <form action="<?= site_url('payment/submit_payment') ?>" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="jumlah_pembayaran" class="form-label">Jumlah Pembayaran:</label>
                         <input type="number" name="jumlah_pembayaran" class="form-control" step="0.01" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="scan_ktp" class="form-label">Upload Scan KTP/Identitas:</label>
-                        <input type="file" name="scan_ktp" class="form-control" accept="image/*" required>
                     </div>
 
                     <div class="mb-3">

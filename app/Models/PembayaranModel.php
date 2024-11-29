@@ -15,7 +15,6 @@ class PembayaranModel extends Model
         'biaya',
         'jumlah_pembayaran',
         'status_pembayaran',
-        'scan_ktp',
         'bukti_transfer',
         'created_at',
         'updated_at'

@@ -32,11 +32,6 @@ class PembayaranController extends BaseController
 
         // Define validation rules for file uploads
         $validationRules = [
-            'scan_ktp' => [
-                'uploaded[scan_ktp]',
-                'mime_in[scan_ktp,image/jpg,image/jpeg,image/gif,image/png]',
-                'max_size[scan_ktp,10240]',  // Max file size in KB (10MB)
-            ],
             'bukti_transfer' => [
                 'uploaded[bukti_transfer]',
                 'mime_in[bukti_transfer,image/jpg,image/jpeg,image/gif,image/png]',
@@ -60,8 +55,7 @@ class PembayaranController extends BaseController
             'biaya' => $this->request->getPost('biaya'),
             'jumlah_pembayaran' => $this->request->getPost('jumlah_pembayaran'),
             'status_pembayaran' => ($this->request->getPost('jumlah_pembayaran') >= $this->request->getPost('biaya')) ? 'lunas' : 'belum lunas',
-            'scan_ktp' => $this->uploadFile('scan_ktp'),
-            'bukti_transfer' => $this->uploadFile('bukti_transfer')
+            'bukti_transfer' => $this->uploadFile('bukti_transfer') // Menghapus scan_ktp
         ];
 
         // Insert the data into the database
