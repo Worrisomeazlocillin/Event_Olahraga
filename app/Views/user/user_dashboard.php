@@ -28,6 +28,16 @@
             font-size: 1.25rem;
             margin: 5px;
         }
+
+        .dropdown-toggle {
+            background-color: transparent;
+            color: black;
+            border: none;
+        }
+
+        .dropdown-toggle:focus {
+            box-shadow: none;
+        }
     </style>
 </head>
 
@@ -36,16 +46,22 @@
     <!-- Header dengan menu Kontak dan About -->
     <div class="header bg-light border-bottom py-2">
         <div class="container d-flex justify-content-between align-items-center">
+            <!-- Judul berada di pojok kiri -->
             <h1 class="mb-0">EVENT OLAHRAGA</h1>
+
+            <!-- Dropdown untuk semua mode -->
             <?php if (session()->get('user_id')): ?>
-                <!-- Tombol hanya tampil jika pengguna sudah login -->
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#profileModal">Lihat Profil</button>
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#contactModal">Kontak</button>
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#aboutModal">About</button>
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#logoutModal">Logout</button>
-            <?php else: ?>
-                <!-- Tombol Login mengarah langsung ke halaman login -->
-                <!-- <a href="<?= site_url('user/login') ?>" class="btn btn-link">Login</a> -->
+                <div class="dropdown"> <!-- Komponen dropdown -->
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menu
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#profileModal">Lihat Profil</button>
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#contactModal">Kontak</button>
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#aboutModal">About</button>
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#logoutModal">Logout</button>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
     </div>
