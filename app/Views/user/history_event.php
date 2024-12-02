@@ -18,16 +18,11 @@
             <h1 class="mb-0">EVENT OLAHRAGA</h1>
             <?php if (session()->get('user_id')): ?>
                 <!-- Dropdown menu for logged-in users -->
-                <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle" type="button" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Menu
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="userMenu">
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">Lihat Profil</a>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#contactModal">Kontak</a>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#aboutModal">About</a>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                    </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#profileModal">Profil</button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#contactModal">Kontak</button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#aboutModal">About</button>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#logoutModal">Logout</button>
                 </div>
             <?php else: ?>
                 <!-- Button for not logged-in users -->
@@ -61,7 +56,7 @@
                         <tr>
                             <th>Nama Lengkap</th>
                             <th>Nama Event</th>
-                            <th>Kategori Event</th>
+                            <th>Nama Kategori</th>
                             <th>Ukuran Kaos</th>
                             <th>Kewarganegaraan</th>
                         </tr>
@@ -71,7 +66,7 @@
                             <tr>
                                 <td><?= esc($history['nama_lengkap']); ?></td>
                                 <td><?= esc($history['nama_event']); ?></td>
-                                <td><?= esc($history['kategori_event']); ?></td>
+                                <td><?= esc($history['nama_kategori']); ?></td>
                                 <td><?= esc($history['ukuran_kaos']); ?></td>
                                 <td><?= esc($history['kewarganegaraan']); ?></td>
                             </tr>
