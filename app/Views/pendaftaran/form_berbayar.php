@@ -13,7 +13,7 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <?= $this->include('header_user') ?>
+        <?= $this->include('header_user_2') ?>
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">

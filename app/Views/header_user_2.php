@@ -7,6 +7,9 @@
     <title>Detail Event</title>
     <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/css/bootstrap.min.css') ?>">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         .header {
             margin-left: 0;
@@ -32,12 +35,16 @@
             <h1 class="mb-0">EVENT OLAHRAGA</h1>
             <?php if (session()->get('user_id')): ?>
                 <!-- Tombol hanya tampil jika pengguna sudah login -->
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#profileModal">Profil</button>
-                    <a href="<?= site_url('user/history-event'); ?>" class="btn btn-link">Histori</a>
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#contactModal">Kontak</button>
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#aboutModal">About</button>
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#logoutModal">Logout</button>
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Menu
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#profileModal">Profil</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#contactModal">Kontak</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#aboutModal">About</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+                    </ul>
                 </div>
             <?php else: ?>
                 <!-- Tombol Login jika pengguna belum login -->
@@ -144,6 +151,8 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

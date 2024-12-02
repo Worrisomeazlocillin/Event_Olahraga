@@ -7,11 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Event</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
 </head>
 
 <body>
+
+    <?= $this->include('header_user_1') ?>
+
     <div class="container mt-5">
-        <?= $this->include('header_user') ?>
+
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
                 <h1 class="card-title text-center">Detail Event</h1>

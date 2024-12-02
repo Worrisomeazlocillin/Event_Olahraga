@@ -4,93 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event History</title>
+    <title>Detail Event</title>
+    <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/plugins/bootstrap/css/bootstrap.min.css') ?>">
 
-    <!-- Link to Bootstrap CSS (using a CDN for Bootstrap 5) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- FontAwesome for icons -->
+
+    <style>
+        .header {
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0px 0;
+        }
+
+        .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .modal-content {
+            padding: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header Section -->
-    <div class="header bg-light border-bottom py-3">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
+    <div class="header bg-light border-bottom py-2">
+        <div class="container d-flex justify-content-between align-items-center">
             <h1 class="mb-0">EVENT OLAHRAGA</h1>
             <?php if (session()->get('user_id')): ?>
-                <!-- Dropdown menu for logged-in users -->
+                <!-- Tombol hanya tampil jika pengguna sudah login -->
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                         Menu
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Profil</a></li>
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#contactModal">Kontak</a></li>
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a></li>
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#profileModal">Profil</a></li>
+                        <li><a class="dropdown-item" href="<?= site_url('user/history-event'); ?>">Histori</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#contactModal">Kontak</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#aboutModal">About</a></li>
+                        <li><a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
                     </ul>
                 </div>
             <?php else: ?>
-                <!-- Button for not logged-in users -->
+                <!-- Tombol Login jika pengguna belum login -->
                 <a href="<?= site_url('user/login') ?>" class="btn btn-link">Login</a>
             <?php endif; ?>
         </div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="container-fluid mt-5">
-        <h3 class="mb-4">Histori Event yang Diikuti</h3>
-
-        <!-- Search Bar -->
-        <form method="get" action="<?= site_url('user/history_event') ?>" class="mb-4">
-            <div class="row">
-                <div class="col-12 col-md-8 mb-2 mb-md-0">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="searchName" name="search" placeholder="Cari berdasarkan nama" value="<?= esc($search ?? '') ?>">
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <button type="submit" class="btn btn-primary w-100">Cari</button>
-                </div>
-            </div>
-        </form>
-
-        <!-- Back Button -->
-        <button type="button" class="btn btn-secondary mb-3" onclick="history.back()">Kembali</button>
-
-        <!-- Check if there is any event history data -->
-        <?php if (!empty($eventHistory)) : ?>
-            <!-- Table to display the event history -->
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Nama Lengkap</th>
-                            <th>Nama Event</th>
-                            <th>Nama Kategori</th>
-                            <th>Ukuran Kaos</th>
-                            <th>Kewarganegaraan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($eventHistory as $history) : ?>
-                            <tr>
-                                <td><?= esc($history['nama_lengkap']); ?></td>
-                                <td><?= esc($history['nama_event']); ?></td>
-                                <td><?= esc($history['nama_kategori']); ?></td>
-                                <td><?= esc($history['ukuran_kaos']); ?></td>
-                                <td><?= esc($history['kewarganegaraan']); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php else : ?>
-            <!-- If no event history, display a message -->
-            <div class="alert alert-warning">
-                Belum ada histori event yang diikuti.
-            </div>
-        <?php endif; ?>
     </div>
 
     <!-- Modal Profil -->
@@ -99,11 +60,32 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="profileModalLabel">Profil Pengguna</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p><strong>Nama Pengguna:</strong> <?= session()->get('username') ?></p>
                     <p><strong>Email:</strong> <?= session()->get('email') ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Histori Event -->
+    <div class="modal fade" id="eventHistoryModal" tabindex="-1" aria-labelledby="eventHistoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventHistoryModalLabel">Histori Event yang Diikuti</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="event-history-list">
+                        <p class="text-muted">Memuat data...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,7 +97,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="contactModalLabel">Kontak Kami</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p>Untuk informasi lebih lanjut, Anda dapat menghubungi kami melalui:</p>
@@ -137,7 +121,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="aboutModalLabel">Tentang Kami</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p><strong>Pendaftaran Event Olahraga</strong> adalah platform digital yang menyediakan informasi dan layanan pendaftaran acara olahraga di Indonesia. Kami bertujuan untuk mempromosikan gaya hidup sehat dan aktif melalui berbagai acara olahraga, mempermudah pendaftaran, serta menyatukan komunitas olahraga di seluruh negeri.</p>
@@ -152,22 +138,22 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p>Apakah Anda yakin ingin keluar?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <a href="<?= site_url('user/logout') ?>" class="btn btn-danger">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Link to Bootstrap JS and Popper.js (for Bootstrap 5 functionality like dropdowns, modals, etc.) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
