@@ -70,7 +70,7 @@
                         <?php foreach ($eventHistory as $history) : ?>
                             <tr>
                                 <td><?= esc($history['nama_lengkap']); ?></td>
-                                <td><?= esc($history['id_event']); ?></td>
+                                <td><?= esc($history['nama_event']); ?></td>
                                 <td><?= esc($history['kategori_event']); ?></td>
                                 <td><?= esc($history['ukuran_kaos']); ?></td>
                                 <td><?= esc($history['kewarganegaraan']); ?></td>

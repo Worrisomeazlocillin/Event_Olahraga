@@ -19,14 +19,10 @@ class UserController extends BaseController
 
     public function history_event()
     {
-        // Ambil data pencarian jika ada
         $search = $this->request->getGet('search');
-
-        // Ambil data histori event dari model berdasarkan pencarian
         $eventHistoryModel = new EventHistoryModel();
         $eventHistory = $eventHistoryModel->getEventHistory($search);
 
-        // Kirim data ke view
         return view('user/history_event', [
             'eventHistory' => $eventHistory,
             'search' => $search

@@ -33,8 +33,8 @@
             <?php if (session()->get('user_id')): ?>
                 <!-- Tombol hanya tampil jika pengguna sudah login -->
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#profileModal">Lihat Profil</button>
-                    <a href="<?= site_url('user/history-event'); ?>" class="btn btn-link">Histori Event</a>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#profileModal">Profil</button>
+                    <a href="<?= site_url('user/history-event'); ?>" class="btn btn-link">Histori</a>
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#contactModal">Kontak</button>
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#aboutModal">About</button>
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#logoutModal">Logout</button>
