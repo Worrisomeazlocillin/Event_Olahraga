@@ -62,6 +62,7 @@ $routes->get('categories', 'KategoriEventController::index'); // Rute untuk hala
 $routes->get('categories/create/(:num)', 'KategorieventController::create/$1');
 $routes->post('categories/store', 'KategoriEventController::store'); // Rute untuk menyimpan kategori baru
 $routes->get('categories/edit/(:num)', 'KategoriEventController::edit/$1'); // Rute untuk halaman edit kategori
+$routes->get('kategorievent/edit/(:num)', 'KategorieventController::edit/$1');
 $routes->post('categories/update/(:num)', 'KategoriEventController::update/$1'); // Rute untuk mengupdate kategori
 $routes->get('categories/delete/(:num)', 'KategoriEventController::delete/$1'); // Rute untuk menghapus kategori
 $routes->get('kategorievent', 'KategoriEventController::index');

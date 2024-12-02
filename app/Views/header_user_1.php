@@ -44,7 +44,7 @@
                         <li><a class="dropdown-item" href="<?= site_url('user/history-event'); ?>">Histori</a></li>
                         <li><a class="dropdown-item" data-toggle="modal" data-target="#contactModal">Kontak</a></li>
                         <li><a class="dropdown-item" data-toggle="modal" data-target="#aboutModal">About</a></li>
-                        <li><a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+                        <li><a class="dropdown-item text-danger" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
                     </ul>
                 </div>
             <?php else: ?>
