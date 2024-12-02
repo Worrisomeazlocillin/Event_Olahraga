@@ -6,6 +6,8 @@ use App\Models\EventModel;
 
 class UserDashboardController extends BaseController
 {
+    protected $db;
+    
     public function index()
     {
         $eventModel = new EventModel();
@@ -13,4 +15,6 @@ class UserDashboardController extends BaseController
 
         return view('user/dashboard', $data); // Panggil view dashboard
     }
+
+    
 }

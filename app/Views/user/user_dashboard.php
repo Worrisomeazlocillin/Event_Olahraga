@@ -57,6 +57,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#profileModal">Lihat Profil</button>
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#eventHistoryModal">Histori Event</button> <!-- Histori Event Button -->
                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#contactModal">Kontak</button>
                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#aboutModal">About</button>
                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#logoutModal">Logout</button>
@@ -152,7 +153,26 @@
                     <div class="modal-body">
                         <p><strong>Nama Pengguna:</strong> <?= session()->get('username') ?></p>
                         <p><strong>Email:</strong> <?= session()->get('email') ?></p>
-                        <!-- Tambahkan informasi profil lainnya sesuai dengan data yang tersedia di session -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Histori Event -->
+        <div class="modal fade" id="eventHistoryModal" tabindex="-1" aria-labelledby="eventHistoryModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eventHistoryModalLabel">Histori Event yang Diikuti</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Tempat untuk menampilkan histori event -->
+                        <div id="event-history-list">
+                            <p class="text-muted">Memuat data...</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -224,6 +244,41 @@
         <script src="<?= base_url('assets/plugins/jquery/jquery.min.js') ?>"></script>
         <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+        <script>
+            // Ketika modal histori event dibuka
+            $('#eventHistoryModal').on('show.bs.modal', function() {
+                // Panggil endpoint AJAX untuk mendapatkan histori event
+                $.ajax({
+                    url: '<?= site_url("UserDashboardController/getEventHistory") ?>', // URL endpoint
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        var historyContainer = $('#event-history-list');
+
+                        if (response.history && response.history.length > 0) {
+                            var historyHtml = '<ul class="list-group">';
+
+                            // Iterasi setiap event yang diikuti
+                            $.each(response.history, function(index, event) {
+                                historyHtml += '<li class="list-group-item">';
+                                historyHtml += '<strong>' + event.event_name + '</strong><br>'; // Nama event
+                                historyHtml += '<small>Lokasi: ' + event.location + '</small><br>'; // Lokasi event
+                                historyHtml += '<small>Tanggal: ' + new Date(event.event_date).toLocaleDateString() + '</small>'; // Tanggal event
+                                historyHtml += '</li>';
+                            });
+
+                            historyHtml += '</ul>';
+                            historyContainer.html(historyHtml); // Update konten HTML
+                        } else {
+                            historyContainer.html('<p class="text-muted">Belum ada event yang diikuti.</p>');
+                        }
+                    },
+                    error: function() {
+                        $('#event-history-list').html('<p class="text-danger">Terjadi kesalahan saat memuat data.</p>');
+                    }
+                });
+            });
+        </script>
 
         <?php if ($nearestEvent): ?>
             <script>

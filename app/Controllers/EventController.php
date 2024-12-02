@@ -119,7 +119,7 @@ class EventController extends Controller
             'location' => $this->request->getPost('location'),
             'description' => $this->request->getPost('description'),
         ];
-        
+
         // Simpan event ke database
         $this->eventModel->save($data);
 
@@ -206,4 +206,24 @@ class EventController extends Controller
             'searchQuery' => $searchQuery // Mengirim query ke view untuk ditampilkan di search bar
         ]);
     }
+
+    // Fungsi untuk menampilkan histori event
+    public function history()
+    {
+        // Mendapatkan histori event dari model (sesuaikan dengan query yang dibutuhkan)
+        $eventHistory = (new EventModel())->getEventHistory();
+
+        return view('user/history_event', ['eventHistory' => $eventHistory]);
+    }
+
+    public function searchEventHistory($searchTerm)
+    {
+        $searchTerm = $this->request->getGet('search'); // Mengambil nilai dari form search
+
+        // Ambil data berdasarkan pencarian
+        $eventHistory = (new EventModel())->searchEventHistory($searchTerm);
+
+        return view('user/history_event', ['eventHistory' => $eventHistory, 'search' => $searchTerm]);
+    }
+    
 }

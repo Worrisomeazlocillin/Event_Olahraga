@@ -17,6 +17,8 @@ $routes->get('peserta/export', 'PendaftaranController::export');
 $routes->get('/user/user-dashboard', 'UserController::userDashboard'); // Rute untuk user dashboard
 $routes->get('/user/dashboard', 'UserController::dashboard'); // Pastikan ini ada
 $routes->get('/user/user_dashboard', 'UserController::dashboard'); // Sesuaikan nama controller dan metode
+$routes->get('/user/history-event', 'UserHistoryController::index');
+$routes->get('/user/history_event', 'UserHistoryController::index');
 
 //OnlyUser login
 $routes->get('user/login', 'AuthUserController::login');
@@ -53,6 +55,7 @@ $routes->get('/event/search', 'EventController::search');
 $routes->get('event/coming_soon', 'EventController::comingSoon');
 $routes->get('event/peserta', 'PendaftaranController::peserta');
 $routes->get('event/peserta/(:num)', 'EventController::peserta/$1');
+$routes->get('/user/history_event', 'UserHistoryController::index');
 
 //Kategori
 $routes->get('categories', 'KategoriEventController::index'); // Rute untuk halaman daftar kategori
