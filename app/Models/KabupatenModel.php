@@ -6,16 +6,13 @@ use CodeIgniter\Model;
 
 class KabupatenModel extends Model
 {
-    protected $table = 'kabupaten';
-    protected $primaryKey = 'id';
-    protected $allowedFields = ['id', 'id_provinsi', 'nama_kabupaten'];
-    
+    protected $table = 'kabupaten'; // Nama tabel di database
+    protected $primaryKey = 'id'; // Primary key tabel
+    protected $allowedFields = ['id', 'id_provinsi', 'nama_kabupaten']; // Kolom yang diizinkan untuk diubah
+
     public function getKabupatenByProvinsi($id_provinsi)
     {
-        // Query untuk mengambil kabupaten berdasarkan provinsi
-        $this->db->where('id_provinsi', $id_provinsi);
-        $query = $this->db->get('kabupaten'); // Ganti dengan nama tabel Anda
-
-        return $query->result_array(); // Mengembalikan hasil dalam bentuk array
+        // Menggunakan query builder untuk mengambil data berdasarkan id_provinsi
+        return $this->where('id_provinsi', $id_provinsi)->findAll();
     }
 }

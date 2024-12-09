@@ -18,8 +18,8 @@ class EventHistoryModel extends Model
         // Menggunakan query builder untuk join dengan tabel 'events' dan 'kategori_event'
         $builder = $this->db->table($this->table)
             ->select('pendaftaran.nama_lengkap, events.event_name as nama_event, 
-                      kategori_event.nama_kategori, pendaftaran.ukuran_kaos, 
-                      pendaftaran.kewarganegaraan')
+                  kategori_event.nama_kategori, events.event_date as event_dimulai, 
+                  pendaftaran.kewarganegaraan')
             ->join('events', 'pendaftaran.id_event = events.id', 'left') // Join tabel 'events'
             ->join('kategori_event', 'pendaftaran.kategori_event = kategori_event.id', 'left'); // Join tabel 'kategori_event'
 

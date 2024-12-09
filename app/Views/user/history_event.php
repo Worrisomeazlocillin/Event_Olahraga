@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event History</title>
+    <title>Event History Peserta</title>
 
     <!-- Link to Bootstrap CSS (using a CDN for Bootstrap 5) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 
     <!-- Main Container -->
     <div class="container-fluid mt-5">
-        <h3 class="mb-4">Histori Event yang Diikuti</h3>
+        <h3 class="mb-4">Histori Event Peserta yang Diikuti</h3>
 
         <!-- Search Bar -->
         <form method="get" action="<?= site_url('user/history_event') ?>" class="mb-4">
@@ -60,7 +60,6 @@
 
         <!-- Check if there is any event history data -->
         <?php if (!empty($eventHistory)) : ?>
-            <!-- Table to display the event history -->
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
                     <thead class="thead-dark">
@@ -68,7 +67,7 @@
                             <th>Nama Lengkap</th>
                             <th>Nama Event</th>
                             <th>Nama Kategori</th>
-                            <th>Ukuran Kaos</th>
+                            <th>Event Dimulai</th>
                             <th>Kewarganegaraan</th>
                         </tr>
                     </thead>
@@ -78,7 +77,7 @@
                                 <td><?= esc($history['nama_lengkap']); ?></td>
                                 <td><?= esc($history['nama_event']); ?></td>
                                 <td><?= esc($history['nama_kategori']); ?></td>
-                                <td><?= esc($history['ukuran_kaos']); ?></td>
+                                <td><?= esc($history['event_dimulai']); ?></td>
                                 <td><?= esc($history['kewarganegaraan']); ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -86,7 +85,6 @@
                 </table>
             </div>
         <?php else : ?>
-            <!-- If no event history, display a message -->
             <div class="alert alert-warning">
                 Belum ada histori event yang diikuti.
             </div>
