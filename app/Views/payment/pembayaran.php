@@ -13,6 +13,17 @@
     <div class="container mt-5">
         <h1 class="text-center mb-5">Pembayaran untuk Event</h1>
 
+        <!-- Menampilkan pesan flash -->
+        <?php if (session()->getFlashdata('success_message')): ?>
+            <div class="alert alert-success text-center" role="alert">
+                <?= session()->getFlashdata('success_message'); ?>
+            </div>
+        <?php elseif (session()->getFlashdata('error_message')): ?>
+            <div class="alert alert-danger text-center" role="alert">
+                <?= session()->getFlashdata('error_message'); ?>
+            </div>
+        <?php endif; ?>
+
         <!-- Detail Event -->
         <div class="card shadow mb-4">
             <div class="card-header bg-primary text-white">
@@ -20,7 +31,7 @@
             </div>
             <div class="card-body">
                 <p><strong>Nama Event :</strong> <?= htmlspecialchars($event_name) ?></p>
-                <p><strong>Kategori Event :</strong> <?= htmlspecialchars($event_kategori) ?> </p>
+                <p><strong>Kategori Event :</strong> <?= htmlspecialchars($event_kategori) ?> </p> <!-- Menampilkan kategori event -->
                 <p><strong>Rute :</strong> <?= htmlspecialchars($rute) ?> </p>
                 <p><strong>Biaya :</strong> Rp <?= number_format($biaya, 2, ',', '.') ?></p>
             </div>
@@ -43,7 +54,7 @@
                 <h2 class="h5 mb-0">Form Konfirmasi Pembayaran</h2>
             </div>
             <div class="card-body">
-                <form id="paymentForm" action="<?= site_url('payment/submit_payment') ?>" method="post" enctype="multipart/form-data">
+                <form action="<?= site_url('payment/submit_payment') ?>" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="jumlah_pembayaran" class="form-label">Jumlah Pembayaran:</label>
                         <input type="number" name="jumlah_pembayaran" class="form-control" step="0.01" required>
@@ -54,27 +65,8 @@
                         <input type="file" name="bukti_transfer" class="form-control" accept="image/*" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100" onclick="showThankYouModal(event)">Kirim Pembayaran</button>
+                    <button type="submit" class="btn btn-primary w-100">Kirim Pembayaran</button>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Pop-up -->
-    <div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="thankYouModalLabel">Pembayaran Berhasil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <p><strong>Terimakasih sudah mendaftar.</strong></p>
-                    <p>Pembayaran Anda sedang diproses.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
-                </div>
             </div>
         </div>
     </div>
@@ -82,18 +74,8 @@
     <!-- Link ke Bootstrap JS bundle via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <script>
-        function showThankYouModal(event) {
-            event.preventDefault(); // Mencegah form langsung submit
-            const modal = new bootstrap.Modal(document.getElementById('thankYouModal'));
-            modal.show();
 
-            // Submit form setelah beberapa saat
-            setTimeout(() => {
-                document.getElementById('paymentForm').submit();
-            }, 2000); // Delay 2 detik sebelum submit
-        }
-    </script>
+
 </body>
 
 </html>

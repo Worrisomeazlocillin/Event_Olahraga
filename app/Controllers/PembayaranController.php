@@ -61,8 +61,11 @@ class PembayaranController extends BaseController
         // Insert the data into the database
         $pembayaranModel->insert($data);
 
-        // Redirect to the admin payments page with a success message
-        return redirect()->to('/user/user_dashboard')->with('success', 'Pembayaran berhasil disimpan.');
+        // Set flashdata to show success message
+        session()->setFlashdata('success_message', 'Selamat Mendaftar, Pembayaran Anda sedang Kami proses');
+
+        // Redirect to the user dashboard or a relevant page with a success message
+        return redirect()->to('/user/user_dashboard');
     }
 
     public function uploadFile($fileInputName)

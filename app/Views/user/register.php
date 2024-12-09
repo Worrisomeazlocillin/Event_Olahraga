@@ -12,6 +12,18 @@
 
     <div class="container mt-5">
         <h2 class="text-center">Register</h2>
+
+        <!-- Display flash messages -->
+        <?php if (session()->getFlashdata('success_message')): ?>
+            <div class="alert alert-success text-center" role="alert">
+                <?= session()->getFlashdata('success_message'); ?>
+            </div>
+        <?php elseif (session()->getFlashdata('error_message')): ?>
+            <div class="alert alert-danger text-center" role="alert">
+                <?= session()->getFlashdata('error_message'); ?>
+            </div>
+        <?php endif; ?>
+
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form action="<?= site_url('authuser/registeruser') ?>" method="post">

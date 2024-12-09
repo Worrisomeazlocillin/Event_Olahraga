@@ -12,6 +12,13 @@
 
     <div class="container mt-5">
         <h2 class="text-center">Login</h2>
+
+        <?php if (session()->getFlashdata('success_message')): ?>
+            <div class="alert alert-success text-center" role="alert">
+                <?= session()->getFlashdata('success_message'); ?>
+            </div>
+        <?php endif; ?>
+
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form action="<?= site_url('authuser/loginuser') ?>" method="post">
