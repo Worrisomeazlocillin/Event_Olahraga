@@ -69,6 +69,7 @@
                             <th>Nama Kategori</th>
                             <th>Event Dimulai</th>
                             <th>Kewarganegaraan</th>
+                            <th>Tanggal Mendaftar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,6 +80,7 @@
                                 <td><?= esc($history['nama_kategori']); ?></td>
                                 <td><?= esc($history['event_dimulai']); ?></td>
                                 <td><?= esc($history['kewarganegaraan']); ?></td>
+                                <td><?= esc($history['tanggal_mendaftar']); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

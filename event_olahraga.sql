@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 03:57 AM
+-- Generation Time: Dec 09, 2024 at 06:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -310,7 +310,8 @@ CREATE TABLE `login_user` (
 --
 
 INSERT INTO `login_user` (`id`, `username`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'Rachmadaani', 'rachmadaani.riskha@gmail.com', '$2y$10$ZECozVnfbYpaCE6i.KvBe.WaxStGuMWkYLjzZ0ojKxkQ2kT/usu72', '2024-11-19 22:50:46', '2024-11-19 22:50:46');
+(1, 'Rachmadaani', 'rachmadaani.riskha@gmail.com', '$2y$10$ZECozVnfbYpaCE6i.KvBe.WaxStGuMWkYLjzZ0ojKxkQ2kT/usu72', '2024-11-19 22:50:46', '2024-11-19 22:50:46'),
+(2, 'Aldo', 'aldo@gmail.com', '$2y$10$Ojtb.We6YRYEIHWWzQgu0eTVBBPBGBwXmeoqowENlt39JhEDTCZjK', '2024-12-08 22:14:50', '2024-12-08 22:14:50');
 
 -- --------------------------------------------------------
 
@@ -339,7 +340,11 @@ INSERT INTO `pembayaran` (`id`, `id_user`, `id_event`, `event_kategori`, `biaya`
 (2, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'FLOWCHART FORM PENDAFTARAN.PNG', '2024-11-18 05:44:53', '2024-11-18 05:44:53'),
 (3, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'FLOWCHART FORM PENDAFTARAN.PNG', '2024-11-18 05:46:41', '2024-11-18 05:46:41'),
 (4, NULL, NULL, NULL, NULL, 60000.00, 'lunas', 'Peta Kurikulum 2024.jpg', '2024-11-29 06:35:02', '2024-11-29 06:35:02'),
-(5, NULL, NULL, NULL, NULL, 0.00, 'lunas', 'Peta Kurikulum 2024.jpg', '2024-11-29 08:13:39', '2024-11-29 08:13:39');
+(5, NULL, NULL, NULL, NULL, 0.00, 'lunas', 'Peta Kurikulum 2024.jpg', '2024-11-29 08:13:39', '2024-11-29 08:13:39'),
+(6, NULL, NULL, NULL, NULL, 100000.00, 'lunas', '21.01.4682-RACHMADAANI INDRIANTO NOOR WACHYUDIN-Transkrip - UNIVERSITAS AMIKOM Yogyakarta_page-0001.jpg', '2024-12-09 04:01:26', '2024-12-09 04:01:26'),
+(7, NULL, NULL, NULL, NULL, 100000.00, 'lunas', '21.01.4682-RACHMADAANI INDRIANTO NOOR WACHYUDIN-Transkrip - UNIVERSITAS AMIKOM Yogyakarta_page-0001.jpg', '2024-12-09 04:39:46', '2024-12-09 04:39:46'),
+(8, NULL, NULL, NULL, NULL, 100000.00, 'lunas', '21.01.4682-RACHMADAANI INDRIANTO NOOR WACHYUDIN-Transkrip - UNIVERSITAS AMIKOM Yogyakarta_page-0001.jpg', '2024-12-09 04:41:47', '2024-12-09 04:41:47'),
+(9, NULL, NULL, NULL, NULL, 100000.00, 'lunas', '21.01.4682-RACHMADAANI INDRIANTO NOOR WACHYUDIN-Transkrip - UNIVERSITAS AMIKOM Yogyakarta_page-0001.jpg', '2024-12-09 04:43:46', '2024-12-09 04:43:46');
 
 -- --------------------------------------------------------
 
@@ -389,7 +394,8 @@ INSERT INTO `pendaftaran` (`id`, `id_event`, `kategori_event`, `rute`, `biaya`, 
 (32, 3, 7, '20 KM', '60000.00', 'Herman', 'herman@gmail.com', '0897352819456', 'Jalan Diponegoro', 11, 53, 'Indonesia', 'Herman', '3489294767299376489', 'B', 'L', '1999-07-10', 'Tidak ada', 'L', 'Bambang', '0875629836736', 'Ayah', 'o', '2024-11-14 07:10:45', '2024-11-14 07:10:45', 'berbayar'),
 (35, 3, 7, '20 KM', '60000.00', 't', 'test@gamil.com', '9', 'j', 1, 1, 'i', 'h', '8', 'A', 'L', '1999-07-08', 'tidakl ada', 'S', 't', '8', 't', 'o', '2024-11-14 07:37:55', '2024-11-14 07:37:55', 'berbayar'),
 (46, 3, 7, '20 KM', '60000.00', 'Rachmadaani Indrianto', 'rachmadaani.riskha@gmail.com', '08895228029', 'Piyungan Rt/Rw : 009/000, Srimartani, Piyungan, Bantul, Yogyakarta', 15, 72, 'Indonesia', 'Dani', '3489462437490003', 'A', 'L', '2002-05-01', 'Tidak Ada', 'L', 'Maman', '08895228029', 'Ayah', 'o', '2024-11-29 06:24:57', '2024-11-29 06:24:57', 'berbayar'),
-(47, 2, 6, '5 KM', '0.00', 'Rachmadaani Indrianto', 'rachmadaani.riskha@gmail.com', '08895228029', 'Piyungan Rt/Rw : 009/000, Srimartani, Piyungan, Bantul, Yogyakarta', 15, 72, 'Indonesia', 'Dani', '3489462437490003', 'A', 'L', '2002-05-01', 'Tidak ada', 'L', 'Agus', '0895002927389', 'Ayah', 'o', '2024-11-29 08:13:17', '2024-11-29 08:13:17', 'berbayar');
+(47, 2, 6, '5 KM', '0.00', 'Rachmadaani Indrianto', 'rachmadaani.riskha@gmail.com', '08895228029', 'Piyungan Rt/Rw : 009/000, Srimartani, Piyungan, Bantul, Yogyakarta', 15, 72, 'Indonesia', 'Dani', '3489462437490003', 'A', 'L', '2002-05-01', 'Tidak ada', 'L', 'Agus', '0895002927389', 'Ayah', 'o', '2024-11-29 08:13:17', '2024-11-29 08:13:17', 'berbayar'),
+(48, 4, 8, '5 KM', '100000.00', 'Rachmadaani Indrianto', 'rachmadaani.riskha@gmail.com', '08895228029', 'Piyungan Rt/Rw : 009/000, Srimartani, Piyungan, Bantul, Yogyakarta', 15, 72, 'Indonesia', 'Rachmadaani', '34894645010990003', 'B', 'L', '2002-05-01', 'Tidak Ada', 'L', 'Bambang', '0856342345567', 'Ayah', 'o', '2024-12-09 04:00:28', '2024-12-09 04:00:28', 'berbayar');
 
 -- --------------------------------------------------------
 
@@ -556,19 +562,19 @@ ALTER TABLE `kategori_event`
 -- AUTO_INCREMENT for table `login_user`
 --
 ALTER TABLE `login_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `provinsi`

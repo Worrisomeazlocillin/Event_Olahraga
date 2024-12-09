@@ -22,13 +22,25 @@ class AuthUserController extends Controller
     public function registerUser()
     {
         $model = new OnlyUserModel();
-
         $validation = \Config\Services::validation();
 
+        $username = $this->request->getPost('username');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        // Cek apakah username sudah ada di database
+        $existingUser = $model->where('username', $username)->first();
+
+        if ($existingUser) {
+            // Jika username sudah ada
+            session()->setFlashdata('error_message', 'Mohon maaf, username anda sudah ada');
+            return redirect()->back()->withInput()->with('validation', $validation);
+        }
+
         $data = [
-            'username' => $this->request->getPost('username'),
-            'email' => $this->request->getPost('email'),
-            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'username' => $username,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
         ];
 
         if ($this->validate([
@@ -37,6 +49,10 @@ class AuthUserController extends Controller
             'password' => 'required|min_length[6]',
         ])) {
             $model->save($data);
+
+            // Menyimpan pesan flashdata "Selamat Username anda sudah terdata"
+            session()->setFlashdata('success_message', 'Selamat, username anda sudah terdata');
+
             return redirect()->to('/user/login');
         } else {
             return redirect()->back()->withInput()->with('validation', $validation);
@@ -60,6 +76,9 @@ class AuthUserController extends Controller
                 'email' => $user['email'], // Ambil email
                 'is_logged_in' => true
             ]);
+
+            // Menyimpan pesan flashdata "Selamat Datang"
+            session()->setFlashdata('welcome_message', 'Selamat Datang, ' . $user['username'] . '!');
 
             return redirect()->to('/user/user_dashboard'); // Redirect ke halaman dashboard
         } else {
